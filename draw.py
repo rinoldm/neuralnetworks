@@ -93,14 +93,16 @@ class Draw:
         self.loss_fig, self.loss_ax = plt.subplots()
         self.loss_fig.canvas.manager.set_window_title('Loss function')
         
-        self.loss_ax.set_yscale("log")
         self.loss_ax.set_xlabel('Epoch')
         self.loss_ax.set_ylabel('Loss')
+        self.loss_ax.set_yscale("log")
         self.t_loss_line, = self.loss_ax.plot([], [], color='tab:purple')
         self.v_loss_line, = self.loss_ax.plot([], [], color='tab:red')
 
         self.val_ax = self.loss_ax.twinx()
         self.val_ax.set_ylabel('Validation')
+        #self.val_ax.set_yscale("log")
+        #self.val_ax.set_ylim([90, 100])
         self.val_ax.set_ylim([0, 100])
         self.val_line, = self.val_ax.plot([], [], color='tab:green')
 

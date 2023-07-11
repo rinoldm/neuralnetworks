@@ -13,7 +13,7 @@ initializations = {
     "he_uniform": lambda n_in, n_out, size : init_w(n_in, size, lambda : np.random.uniform(-np.sqrt(6 / n_in), np.sqrt(6 / n_in))),
     "xavier_normal": lambda n_in, n_out, size : init_w(n_in, size, lambda : np.random.normal(0, np.sqrt(2 / (n_in + n_out)))),
     "xavier_uniform": lambda n_in, n_out, size : init_w(n_in, size, lambda : np.random.uniform(-np.sqrt(6 / (n_in + n_out)), np.sqrt(6 / (n_in + n_out)))),
-    "output": lambda n_in, n_out, size : init_w(n_in, size, lambda : np.random.normal(0, 0.1)),
+    "output_layer": lambda n_in, n_out, size : init_w(n_in, size, lambda : np.random.normal(0, 0.1)),
 }
 
 norms = {

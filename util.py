@@ -4,6 +4,7 @@ import struct
 import numpy as np
 import json
 import os
+from types import SimpleNamespace
 
 
 def read_images(path):
@@ -34,10 +35,8 @@ class NumpyArrayEncoder(json.JSONEncoder):
 def save_weights(net):
     network_weights = []
     network_weights.insert(0, {})
-    network_weights[0]["metadata"] = net.__str__()
-    network_weights[0]["loss"] = net.loss
-    network_weights[0]["regularization"] = net.regularization
-    network_weights[0]["reg_lambda"] = net.reg_lambda
+    network_weights[0]["architecture"] = net.__str__()
+    network_weights[0]["hp"] = vars(net.hp)
     for layer_index, layer in enumerate(net.layers[1:], start=1):
         network_weights.insert(layer_index, {})
         network_weights[layer_index]["weights"] = layer.weights
@@ -55,11 +54,9 @@ def load_weights(net, weight_filename):
     save_file = open(save_filename, "r")
                                  
     network_weights = np.asarray(json.load(save_file))
-    print("LOADING WEIGHTS - " + save_filename)
-    print("Loading: " + network_weights[0]["metadata"])
-    net.loss = network_weights[0]["loss"]
-    net.regularization = network_weights[0]["regularization"]
-    net.reg_lambda = network_weights[0]["reg_lambda"]
+    print("LOADING WEIGHTS -", save_filename)
+    print("Loading:", network_weights[0]["architecture"])
+    net.set_hyperparameters(hp=SimpleNamespace(**network_weights[0]["hp"]))
     for layer_index, layer in enumerate(network_weights[1:], start=1):
         if (len(layer["biases"]) != len(net.layers[layer_index].biases)):
             raise ValueError("Mismatch in size of layer {} between save file ({}) and network ({})".format(layer_index, len(layer["biases"]), len(net.layers[layer_index].biases)))

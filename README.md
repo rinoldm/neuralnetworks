@@ -14,12 +14,13 @@ Here are some features and characteristics:
 * Vectorization of most operations
 * Mini-batch gradient descent
 * Several regularization methods available (see **functions.py/regularizations**)
+* Learning rate scheduling (step decay)
 * Early stopping based on monitoring of the validation loss during training
 
 Things that I may or may not look into (issues, features or further optimization techniques):
 * dropout/pruning
-* learning rate scheduling/warmup
 * batch normalization
+* optimizers: RMSprop/Adam/Adagrad
 * investigate gaussian (exploding gradients?)
 * display pictures
 * improve loss function visualisation
